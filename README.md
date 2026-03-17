@@ -1,6 +1,6 @@
 # Skills 合集
 
-个人自用的 AI 编程助手 Skills 合集，支持 Claude Code 和 Cursor。
+个人自用的 AI 编程助手 Skills 合集，支持 Claude Code、Cursor、Windsurf、Aider 等 AI 编程工具。
 
 ## 目录结构
 
@@ -10,7 +10,6 @@
 ├── skills/
 │   └── research/          # 综合调研 skill
 │       └── SKILL.md
-├── cursor-install.sh      # Cursor 一键安装脚本
 └── README.md
 ```
 
@@ -36,21 +35,31 @@
 
 ## 安装方式
 
-### Claude Code（Plugin 方式，推荐）
+### OpenSkills（通用，推荐）
 
-1. 在 Claude Code 中注册本仓库为 Plugin marketplace：
+适用于 Claude Code、Cursor、Windsurf、Aider 等所有支持 SKILL.md 的 AI 编程工具。
+
+安装到当前项目：
+
+```bash
+npx openskills install zzmzz/skills
+npx openskills sync
+```
+
+安装到全局：
+
+```bash
+npx openskills install zzmzz/skills --global
+```
+
+### Claude Code（Plugin 方式）
 
 ```
 /plugin marketplace add zzmzz/skills
-```
-
-2. 安装 skills：
-
-```
 /plugin install zzmzz-skills@zzmzz-skills
 ```
 
-或者通过交互式安装：
+或者交互式安装：
 1. 输入 `/plugin marketplace add zzmzz/skills`
 2. 选择 `Browse and install plugins`
 3. 选择 `zzmzz-skills`
@@ -58,42 +67,10 @@
 
 安装完成后，直接在对话中说"调研 xxx"即可触发 research skill。
 
-### Claude Code（手动方式）
-
-```bash
-git clone git@github.com:zzmzz/skills.git ~/zzmzz-skills
-cp -r ~/zzmzz-skills/skills/research ~/.claude/skills/research
-```
-
-### Cursor（一键安装，推荐）
-
-在项目根目录下运行：
-
-```bash
-bash <(curl -sL https://raw.githubusercontent.com/zzmzz/skills/main/cursor-install.sh)
-```
-
-脚本会自动下载所有 skills 并安装为 `.cursor/rules/*.mdc` 文件。
-
-也可以指定项目目录：
-
-```bash
-bash <(curl -sL https://raw.githubusercontent.com/zzmzz/skills/main/cursor-install.sh) /path/to/project
-```
-
-### Cursor（手动方式）
-
-```bash
-git clone git@github.com:zzmzz/skills.git /tmp/zzmzz-skills
-mkdir -p .cursor/rules
-cp /tmp/zzmzz-skills/skills/research/SKILL.md .cursor/rules/research.mdc
-```
-
 ---
 
 ## 添加新 Skill
 
 1. 在 `skills/` 下新建目录，添加 `SKILL.md`
 2. 在 `.claude-plugin/marketplace.json` 的 `skills` 数组中添加路径
-3. 在 `cursor-install.sh` 的 `SKILLS` 数组中添加名称
-4. 更新本 README
+3. 更新本 README
