@@ -10,6 +10,7 @@
 ├── skills/
 │   └── research/          # 综合调研 skill
 │       └── SKILL.md
+├── cursor-install.sh      # Cursor 一键安装脚本
 └── README.md
 ```
 
@@ -64,11 +65,23 @@ git clone git@github.com:zzmzz/skills.git ~/zzmzz-skills
 cp -r ~/zzmzz-skills/skills/research ~/.claude/skills/research
 ```
 
-### Cursor
+### Cursor（一键安装，推荐）
 
-将 skill 作为 Cursor Rules 使用：
+在项目根目录下运行：
 
-**方式一：项目级安装**
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/zzmzz/skills/main/cursor-install.sh)
+```
+
+脚本会自动下载所有 skills 并安装为 `.cursor/rules/*.mdc` 文件。
+
+也可以指定项目目录：
+
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/zzmzz/skills/main/cursor-install.sh) /path/to/project
+```
+
+### Cursor（手动方式）
 
 ```bash
 git clone git@github.com:zzmzz/skills.git /tmp/zzmzz-skills
@@ -76,19 +89,11 @@ mkdir -p .cursor/rules
 cp /tmp/zzmzz-skills/skills/research/SKILL.md .cursor/rules/research.mdc
 ```
 
-> 注意：可能需要根据 Cursor Rules 的格式规范微调 frontmatter。
-
-**方式二：通过 Cursor 设置界面**
-
-1. 打开 Cursor 设置 → **Rules**
-2. 点击 **Add Rule**
-3. 将 `skills/research/SKILL.md` 的内容粘贴进去
-4. 保存即可
-
 ---
 
 ## 添加新 Skill
 
 1. 在 `skills/` 下新建目录，添加 `SKILL.md`
 2. 在 `.claude-plugin/marketplace.json` 的 `skills` 数组中添加路径
-3. 更新本 README
+3. 在 `cursor-install.sh` 的 `SKILLS` 数组中添加名称
+4. 更新本 README
