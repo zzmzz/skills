@@ -5,15 +5,11 @@
 ## 目录结构
 
 ```
-├── skills/                # Skills 源文件
+├── .claude-plugin/
+│   └── marketplace.json   # Claude Code Plugin 注册文件
+├── skills/
 │   └── research/          # 综合调研 skill
 │       └── SKILL.md
-├── claude/                # Claude Code 安装相关
-│   └── install.sh         # 一键安装脚本
-├── cursor/                # Cursor 安装相关
-│   ├── rules/             # .mdc 规则文件
-│   │   └── research.mdc
-│   └── install.sh         # 一键安装脚本
 └── README.md
 ```
 
@@ -39,49 +35,54 @@
 
 ## 安装方式
 
-### Claude Code
+### Claude Code（Plugin 方式，推荐）
 
-**方式一：一键安装（推荐）**
+1. 在 Claude Code 中注册本仓库为 Plugin marketplace：
 
-```bash
-git clone git@github.com:zzmzz/skills.git
-cd skills
-bash claude/install.sh
+```
+/plugin marketplace add zzmzz/skills
 ```
 
-脚本会将 `skills/` 下的所有 skill 以符号链接的方式安装到 `~/.claude/skills/`。
+2. 安装 skills：
 
-**方式二：手动复制**
+```
+/plugin install zzmzz-skills@zzmzz-skills
+```
+
+或者通过交互式安装：
+1. 输入 `/plugin marketplace add zzmzz/skills`
+2. 选择 `Browse and install plugins`
+3. 选择 `zzmzz-skills`
+4. 选择 `Install now`
+
+安装完成后，直接在对话中说"调研 xxx"即可触发 research skill。
+
+### Claude Code（手动方式）
 
 ```bash
-cp -r skills/research ~/.claude/skills/research
+git clone git@github.com:zzmzz/skills.git ~/zzmzz-skills
+cp -r ~/zzmzz-skills/skills/research ~/.claude/skills/research
 ```
 
 ### Cursor
 
-**方式一：一键安装**
+将 skill 作为 Cursor Rules 使用：
 
-在你的项目根目录下运行：
-
-```bash
-git clone git@github.com:zzmzz/skills.git /tmp/skills
-bash /tmp/skills/cursor/install.sh
-```
-
-脚本会将 `.mdc` 规则文件复制到当前项目的 `.cursor/rules/` 下。
-
-**方式二：手动安装**
+**方式一：项目级安装**
 
 ```bash
+git clone git@github.com:zzmzz/skills.git /tmp/zzmzz-skills
 mkdir -p .cursor/rules
-cp cursor/rules/research.mdc .cursor/rules/
+cp /tmp/zzmzz-skills/skills/research/SKILL.md .cursor/rules/research.mdc
 ```
 
-**方式三：通过 Cursor 设置界面**
+> 注意：可能需要根据 Cursor Rules 的格式规范微调 frontmatter。
+
+**方式二：通过 Cursor 设置界面**
 
 1. 打开 Cursor 设置 → **Rules**
 2. 点击 **Add Rule**
-3. 将 `cursor/rules/research.mdc` 的内容粘贴进去
+3. 将 `skills/research/SKILL.md` 的内容粘贴进去
 4. 保存即可
 
 ---
@@ -89,5 +90,5 @@ cp cursor/rules/research.mdc .cursor/rules/
 ## 添加新 Skill
 
 1. 在 `skills/` 下新建目录，添加 `SKILL.md`
-2. 在 `cursor/rules/` 下新建对应的 `.mdc` 文件
+2. 在 `.claude-plugin/marketplace.json` 的 `skills` 数组中添加路径
 3. 更新本 README

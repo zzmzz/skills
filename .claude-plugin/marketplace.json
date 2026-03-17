@@ -1,0 +1,21 @@
+{
+  "name": "zzmzz-skills",
+  "owner": {
+    "name": "zzmzz"
+  },
+  "metadata": {
+    "description": "zzmzz 个人 skills 合集",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "zzmzz-skills",
+      "description": "个人 skills 合集，包含综合调研等实用 skills",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/research"
+      ]
+    }
+  ]
+}
